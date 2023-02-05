@@ -86,6 +86,24 @@
 #with ServerProxy("http://10.0.2.4:111/") as proxy:
 #    print(proxy)
 
-# need TCP?
 
+# netbios-ssn 139
+# NetBios session service
+# https://miloserdov.org/?p=4261
+#sudo nmap -p U:137,138,T:137,139 -sU -sS 10.0.2.4   
+#[sudo] password for developer: 
+#Starting Nmap 7.93 ( https://nmap.org ) at 2023-02-05 16:26 EST
+#Nmap scan report for 10.0.2.4
+#Host is up (0.00046s latency).
+#
+#PORT    STATE         SERVICE
+#137/tcp closed        netbios-ns
+#139/tcp open          netbios-ssn
+#137/udp open          netbios-ns
+#138/udp open|filtered netbios-dgm
+#MAC Address: 08:00:27:9C:A5:CB (Oracle VirtualBox virtual NIC)
+#
+#Nmap done: 1 IP address (1 host up) scanned in 1.46 seconds
+
+# need TCP for netbios?
 
