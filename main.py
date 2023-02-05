@@ -107,3 +107,7 @@
 
 # need TCP for netbios?
 
+
+# python nmap
+# https://pypi.org/project/python-nmap/
+# gpl3
