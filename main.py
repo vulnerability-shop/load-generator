@@ -53,9 +53,12 @@ def test2():
 
 s = requests.Session()
 params = { 'username':'webgoat', 'password':'webgoat' }
-r = s.post("http://10.0.2.5:8080/WebGoat/login", params=params)
+r = s.post("http://10.0.2.15:8080/WebGoat/login", params=params)
 #print(r.text)
 
-params = { 'query':"select+deprtment+from+Employees+where+first_name='Bob'" }
-r = s.post("http://10.0.2.5:8080/WebGoat/SqlInjection/attack2", params=params)
+r = s.get("http://10.0.2.15:8080/WebGoat/welcome.mvc")
+print(r.text)
+
+params = { 'query':"select+department+from+Employees+where+first_name='Bob'" }
+r = s.post("http://10.0.2.15:8080/WebGoat/SqlInjection/attack2", params=params)
 print(r.text)
