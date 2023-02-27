@@ -7,13 +7,13 @@
 
 import requests
 
-host="http://10.0.2.5:8080/WebGoat"
+host="http://10.0.2.15:8080/WebGoat"
 
 s = requests.Session()
 
 #params = { 'username':'webgoat', 'password':'webgoat', 'matchingPassword':'webgoat', 'agree':'agree' }
-#r = s.get(host + "/register.mvc")
-#print(r)
+#r = s.post(host + "/register.mvc", params=params)
+#print(r.text)
 
 params = { 'username':'webgoat', 'password':'webgoat' }
 r = s.post(host + "/login", params=params)
