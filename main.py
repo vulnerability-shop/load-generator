@@ -1,6 +1,9 @@
 from threading import Thread
 import scenarios.webgoat_sample as wg
 import scenarios.scenario_sample as ss
+import scenarios.temp as t
+from config import stop_signal
+import time 
 
 if __name__ == '__main__':
 
@@ -10,23 +13,22 @@ if __name__ == '__main__':
     #t1.daemon = True
     #t2.daemon = True
 
-    #scenario_sample
-    s1 = ss.Scenario("s1")
-    s2 = ss.Scenario("s2")
 
-    t1 = Thread(target=s1.run)
-    t2 = Thread(target=s2.run)
+    ##scenario_sample
+    #s1 = ss.Scenario("s1")
+    #s2 = ss.Scenario("s2")
+    #t1 = Thread(target=s1.run)
+    #t2 = Thread(target=s2.run)
+    #try:        
+    #    t1.start()
+    #    t2.start()
+    #except(KeyboardInterrupt, SystemExit):
+    #    #s1.stop()
+    #    #s2.stop()
+    #    pass
+    #print("press ctrl+c to stop")
+    #input("")
 
-    try:        
-        t1.start()
-        t2.start()
-    except(KeyboardInterrupt, SystemExit):
-        #s1.stop()
-        #s2.stop()
-        pass
-
-    print("press ctrl+c to stop")
-    input("")
 
     #thread subclass
     #s1 = ss.Scenario("s1")
@@ -40,3 +42,17 @@ if __name__ == '__main__':
     #    print("stopping")
     #    s1.stop()
     #    s2.stop()
+
+
+    #test
+    t1 = t.Scenario("t1")
+    t2 = t.Scenario("t2")
+    t1.daemon = True
+    t2.daemon = True
+    try:
+        t1.start()
+        t2.start()
+        while True: time.sleep(100)
+    except(KeyboardInterrupt, SystemExit):
+        print("sending stop signal")
+        stop_signal = 1
