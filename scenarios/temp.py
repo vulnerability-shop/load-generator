@@ -1,7 +1,7 @@
 import requests
 import time
 import threading
-from config import stop_signal
+from signals import stop_signal
 
 class Scenario(threading.Thread):
 

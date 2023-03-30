@@ -2,10 +2,32 @@ from threading import Thread
 import scenarios.webgoat_sample as wg
 import scenarios.scenario_sample as ss
 import scenarios.temp as t
-from config import stop_signal
-import time 
+#from config import stop_signal
+import signals
+from time import sleep
+import importlib
+from worker import Worker
+
+def main(moduleList: list):
+    try:
+        workers = []
+        print('creating workers')
+        for w in moduleList:
+            workers.append(Worker(w))
+        print('starting workers')
+        for w in workers:
+            w.start()
+        while True: sleep(60)
+    except(KeyboardInterrupt, SystemExit):
+        print("sending stop signal")
+        signals.stop_signal = 1
 
 if __name__ == '__main__':
+    moduleList = []
+    file = open('script1.txt', 'r').read().splitlines()
+    for line in file:
+        moduleList.append(line)
+    main(moduleList)
 
     #webgoat_sample
     #t1 = Thread(target=wg.run, args=["t1",])
@@ -45,14 +67,28 @@ if __name__ == '__main__':
 
 
     #test
-    t1 = t.Scenario("t1")
-    t2 = t.Scenario("t2")
-    t1.daemon = True
-    t2.daemon = True
-    try:
-        t1.start()
-        t2.start()
-        while True: time.sleep(100)
-    except(KeyboardInterrupt, SystemExit):
-        print("sending stop signal")
-        stop_signal = 1
+    #t1 = t.Scenario("t1")
+    #t2 = t.Scenario("t2")
+    #t1.daemon = True
+    #t2.daemon = True
+    #try:
+    #    t1.start()
+    #    t2.start()
+    #    while True: time.sleep(100)
+    #except(KeyboardInterrupt, SystemExit):
+    #    print("sending stop signal")
+    #    stop_signal = 1
+
+
+    #test2
+    #try:
+    #    w1 = Worker('scenarios.temp2')
+    #    w2 = Worker('scenarios.temp2')
+    #    w1.start()
+    #    w2.start()
+    #    while True: time.sleep(100)
+    #except(KeyboardInterrupt, SystemExit):
+    #    print("sending stop signal")
+    #    stop_signal = 1
+
+    
