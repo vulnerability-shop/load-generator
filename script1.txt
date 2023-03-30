@@ -1,3 +1,2 @@
-scenarios.temp2
-scenarios.temp2
-scenarios.temp2
+scenarios.webgoat_sample
+scenarios.webgoat_sample
