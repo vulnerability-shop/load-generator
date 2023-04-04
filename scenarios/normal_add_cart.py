@@ -2,8 +2,8 @@ import requests
 import subprocess
 import argparse
 import random
-from modules.login import login_with_id
-from modules.add_to_cart import add_to_cart_random
+from modules.user import login_with_id
+from modules.cart import add_to_cart_random, clear_cart
 
 
 if __name__ == '__main__':
@@ -16,7 +16,12 @@ if __name__ == '__main__':
     if args.user_auth is not None:
         add_to_cart_random(args.user_auth)
         print(f"Successfully added random items to cart for connected user: {args.user_auth}")
+        if random.randint(0, 1) == 1:
+            clear_cart(args.user_auth)
     else:
         auth = login_with_id(args.user_id, args.file_path)
         add_to_cart_random(auth)
         print(f"Successfully logged in and added random items to cart")
+        if random.randint(0, 1) == 1:
+            clear_cart(auth)
+

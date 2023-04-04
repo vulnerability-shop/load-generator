@@ -2,10 +2,9 @@ import requests
 import random
 import json
 
-url = 'http://127.0.0.1:5182/addCartItem'
-
 
 def add_to_cart(auth_token, item_id, item_qty):
+    url = 'http://127.0.0.1:5182/addCartItem'
     data = {
         'itemId': item_id,
         'itemQuantity': item_qty
@@ -22,8 +21,8 @@ def add_to_cart(auth_token, item_id, item_qty):
 
 
 def add_to_cart_random(auth_token):
-    cart_items_url = 'http://127.0.0.1:5181/getItems'
-    response = requests.get(cart_items_url)
+    url = 'http://127.0.0.1:5181/getItems'
+    response = requests.get(url)
     if not response.ok:
         print('Error fetching items in normal add cart')
     items = json.loads(response.text)['data']
@@ -34,3 +33,12 @@ def add_to_cart_random(auth_token):
         item_qty = random.randint(1, items[item_id]['stock'])
 
         add_to_cart(auth_token, item_id, item_qty)
+
+def clear_cart(auth_token):
+    url = 'http://127.0.0.1:5182/clearUserCart'
+    response = requests.delete(url, headers={'Authorization': auth_token})
+    if response.ok:
+        print(f'Cart cleared for User: {auth_token}')
+    else:
+        print(f'Error clearing cart for User: {auth_token}')
+        exit(1)

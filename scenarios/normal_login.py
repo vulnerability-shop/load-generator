@@ -1,5 +1,5 @@
 import argparse
-from modules.login import *
+from modules.user import *
 
 
 if __name__ == '__main__':

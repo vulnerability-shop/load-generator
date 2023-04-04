@@ -2,8 +2,8 @@ import json
 import requests
 import subprocess
 import argparse
-from modules.add_to_cart import add_to_cart_random
-from modules.login import login_with_id
+from modules.cart import add_to_cart_random
+from modules.user import login_with_id
 
 def purchase(auth_token):
     # TODO fix url
