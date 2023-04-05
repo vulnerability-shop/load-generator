@@ -1,14 +1,14 @@
-import json
 import requests
-import subprocess
-import argparse
 from modules.cart import add_to_cart_random
-from modules.user import login_with_id
+from modules.user import random_login
 
-def purchase(auth_token):
-    # TODO fix url
+
+def main():
+    auth = random_login()
+    add_to_cart_random(auth)
+
     url = 'http://127.0.0.1:5184/addPurchase'
-    response = requests.post(url, headers={'Authorization': auth_token})
+    response = requests.post(url, headers={'Authorization': auth})
     if response.ok:
         print(f'Normal purchase successful')
     elif response.status_code == 401:
@@ -20,17 +20,4 @@ def purchase(auth_token):
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--user_id', type=int, required=False, default=-1, help='UserId, if null, will login as random')
-    parser.add_argument('--file_path', type=str, required=False, help='user_migration csv path, if null uses default')
-    parser.add_argument('--user_auth', type=str, required=False, help='user token, if null will login')
-    args = parser.parse_args()
-
-    if args.user_auth is not None:
-        auth = args.user_auth
-    else:
-        auth = login_with_id(args.user_id, args.file_path)
-    add_to_cart_random(auth)
-    purchase(auth)
-
-
+    main()

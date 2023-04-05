@@ -1,6 +1,18 @@
 import json
 import requests
-from modules.fetch_user import fetch_user_credentials
+import random
+import csv
+
+
+def fetch_user_credentials(user_id: int = -1):
+    users_migration = '../ressources/import_data_Customer.csv'
+    with open(users_migration, newline='') as csvfile:
+        csvreader = csv.reader(csvfile, delimiter=',')
+        if user_id != -1:
+            row = list(csvreader)[user_id]
+        else:
+            row = random.choice(list(csvreader))
+        return row[1], row[2]
 
 
 def login_with_credentials(username, password):
@@ -19,6 +31,11 @@ def login_with_credentials(username, password):
         return ''
 
 
-def login_with_id(user_id: int = -1, file_path: str = None):
-    username, password = fetch_user_credentials(user_id, file_path)
+def login_with_id(user_id: int = -1):
+    username, password = fetch_user_credentials(user_id)
+    return login_with_credentials(username, password)
+
+
+def random_login():
+    username, password = fetch_user_credentials()
     return login_with_credentials(username, password)
