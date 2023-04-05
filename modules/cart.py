@@ -30,7 +30,7 @@ def add_to_cart_random(auth_token):
     nb_items = random.randint(1, 3)
     for _ in range(nb_items):
         item_id = random.randint(1, len(items))
-        item_qty = random.randint(1, items[item_id]['stock'])
+        item_qty = random.randint(1, items[item_id - 1]['stock'])
         add_to_cart(auth_token, item_id, item_qty)
 
 

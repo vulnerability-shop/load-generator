@@ -15,7 +15,7 @@ def main():
         print('Login error in normal purchase')
         exit(1)
     else:
-        print('Error in normal purchase')
+        print(f'Error in normal purchase: {response.status_code}')
         exit(1)
 
 
