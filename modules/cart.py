@@ -24,14 +24,20 @@ def add_to_cart_random(auth_token):
     url = 'http://127.0.0.1:5181/getItems'
     response = requests.get(url)
     if not response.ok:
-        print('Error fetching items in normal add cart')
+        print('Error fetching items in random add cart')
     items = json.loads(response.text)['data']
 
     nb_items = random.randint(1, 3)
+    items_added = 0
     for _ in range(nb_items):
         item_id = random.randint(1, len(items))
-        item_qty = random.randint(1, items[item_id - 1]['stock'])
+        item_stock: int = items[item_id - 1]['stock']
+        if item_stock <= 0:
+            continue
+        item_qty = random.randint(1, item_stock)
         add_to_cart(auth_token, item_id, item_qty)
+        items_added += 1
+    return items_added
 
 
 def clear_cart(auth_token):

@@ -5,7 +5,7 @@ import csv
 
 
 def fetch_user_credentials(user_id: int = -1):
-    users_migration = '../ressources/import_data_Customer.csv'
+    users_migration = 'ressources/import_data_Customer.csv'
     with open(users_migration, newline='') as csvfile:
         csvreader = csv.reader(csvfile, delimiter=',')
         if user_id != -1:
