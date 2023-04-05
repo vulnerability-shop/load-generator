@@ -13,10 +13,10 @@ def add_to_cart(auth_token, item_id, item_qty):
     if response.ok:
         print(f'Added {item_qty} of Item: {item_id} to cart for User: {json.loads(response.text)["customerId"]}')
     elif response.status_code == 401:
-        print('Login error in normal add cart')
+        print('Login error in add to cart')
         exit(1)
     else:
-        print('Error in normal add cart')
+        print('Error in add to cart')
         exit(1)
 
 
@@ -31,7 +31,10 @@ def add_to_cart_random(auth_token):
     items_added = 0
     for _ in range(nb_items):
         item_id = random.randint(1, len(items))
-        item_stock: int = items[item_id - 1]['stock']
+        for item in items:
+            if item['id'] == item_id:
+                item_stock = item['stock']
+                break
         if item_stock <= 0:
             continue
         item_qty = random.randint(1, item_stock)
